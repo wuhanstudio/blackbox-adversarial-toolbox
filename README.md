@@ -1,4 +1,8 @@
+<img src="docs/images/bat.png" width=300px align="left">
+
 # Black-box Adversarial Toolbox (BAT)
+
+Black-box Adversarial Toolbox (BAT) - Python Library for Deep Learning Security that focuses on Black-box attacks.
 
 
 
