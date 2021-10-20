@@ -1,4 +1,4 @@
-<img src="docs/images/bat.png" width=300px align="left">
+<img src="docs/images/bat.png" width=300px style="float: left;" >
 
 # Black-box Adversarial Toolbox (BAT)
 
