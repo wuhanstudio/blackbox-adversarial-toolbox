@@ -1,4 +1,4 @@
-# # Black-box Adversarial Toolbox (BAT)
+# Black-box Adversarial Toolbox (BAT)
 
 
 
