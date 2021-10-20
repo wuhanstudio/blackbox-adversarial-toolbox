@@ -1,0 +1,2 @@
+recursive-include examples *.jpg
+recursive-include examples *.py
