@@ -8,4 +8,5 @@ python:
   - "3.9"
 
 script:
+  - pip install tox
   - tox -v -e py
