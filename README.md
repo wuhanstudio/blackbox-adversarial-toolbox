@@ -1,4 +1,4 @@
-<img src="docs/images/bat.png" width=300px style="float: left;" >
+<img src="https://bat.wuhanstudio.uk/images/bat.png" width=300px style="float: left;" >
 
 # Black-box Adversarial Toolbox (BAT)
 
