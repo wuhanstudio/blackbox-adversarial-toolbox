@@ -1,2 +1,5 @@
-recursive-include examples *.jpg
-recursive-include examples *.py
+include *.md
+include LICENSE
+graft docs
+graft examples
+graft tests
