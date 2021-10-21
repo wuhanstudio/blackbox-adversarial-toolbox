@@ -17,7 +17,7 @@ pdoc.render.configure(
     template_directory = here / "pdoc-dark-mode", 
     footer_text="Black-box Adversarial Toolbox",
     search=True,
-    logo="../images/bat_dark.png",
+    logo="https://bat.wuhanstudio.uk/images/bat_dark.png",
     logo_link="https://github.com/wuhanstudio/blackbox-adversarial-toolbox")
 
 pdoc.pdoc(*modules, output_directory = here / "docs")
