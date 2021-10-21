@@ -42,7 +42,7 @@ setuptools.setup(
     install_requires=install_requires,
     extra_require = {
         "dev": [
-            "pytest>=3.7",
+            "pytest>=3.6",
         ]
     },
     packages=setuptools.find_packages(),
