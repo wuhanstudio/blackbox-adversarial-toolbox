@@ -22,9 +22,11 @@ install_requires = [
     "numpy>=1.18.0",
     "scipy>=1.4.1",
     "scikit-learn>=0.22.2",
+    "pillow",
+    "requests",
+    "tqdm",
     "six",
     "setuptools",
-    "tqdm",
 ]
 
 setuptools.setup(
