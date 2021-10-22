@@ -16,13 +16,11 @@
             <label id="navtoggle" for="togglestate" class="pdoc-button"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke-linecap='round' stroke="currentColor" stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg></label>
             <input id="togglestate" type="checkbox">
             <div>
-                        <a class="pdoc-button module-list-button" href="../index.html">
+                        <a class="pdoc-button module-list-button" href="../bat.html">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
   <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
-</svg>                            &nbsp;
-                            Module Index
-                        </a>
+</svg>                            &nbsp;bat</a>
 
 <a href="https://github.com/wuhanstudio/blackbox-adversarial-toolbox">                        <img src="https://bat.wuhanstudio.uk/images/bat_dark.png" class="logo" alt="project logo"/>
 </a>
@@ -36,7 +34,7 @@
                     </ul>
 
 
-                    <footer>Black-box Adversarial Toolbox</footer>
+                    <footer>Black-box Adversarial Toolbox v0.0.6</footer>
 
                     <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev">
                         built with <span class="visually-hidden">pdoc</span><img
@@ -48,12 +46,29 @@
     <main class="pdoc">
             <section>
                     <h1 class="modulename">
-bat<wbr>.attacks    </h1>
+<a href="./../bat.html">bat</a><wbr>.attacks    </h1>
 
-                
+                        <div class="docstring"><p>This module implements several black-box attacks against Deep Learning models.</p>
+
+<p>Currently Supported Attacks:</p>
+
+<ul>
+<li><a href="https://arxiv.org/abs/1905.07121">SimpleBA</a></li>
+</ul>
+</div>
+
                         <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">bat.attacks.simba</span> <span class="kn">import</span> <span class="n">SimBA</span>
+            <div class="codehilite"><pre><span></span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">This module implements several black-box attacks against Deep Learning models.</span>
+
+<span class="sd">Currently Supported Attacks:</span>
+
+<span class="sd">- [SimpleBA](https://arxiv.org/abs/1905.07121)</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">bat.attacks.simba</span> <span class="kn">import</span> <span class="n">SimBA</span>
 </pre></div>
 
         </details>

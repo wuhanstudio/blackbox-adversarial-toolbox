@@ -1,15 +1,28 @@
 """
 This module implements the black-box attack `SimBA`.
-| Paper link: https://arxiv.org/abs/1905.07121
 """
 
 import numpy as np
 
 class SimBA():
+    """
+    Implementation of the `SimBA` attack. Paper link: https://arxiv.org/abs/1905.07121
+    """
+
     def __init__(self):
-        pass
-        
-    def attack(self, x, model, epoch=1000):
+        """
+        Create a class: `SimBA` instance.
+        """
+
+    def attack(self, x, model, epsilon=0.1, epoch=1000):
+        """
+        Initiate the attack.
+
+        - x: input data
+        - model: model to attack
+        - epsilon: perturbation on each pixel
+        - epoch: number of iterations
+        """
         y_pred = model.predict(np.array([x]))[0]
 
         x_adv = x
@@ -19,7 +32,7 @@ class SimBA():
         perm = np.random.permutation(x.reshape(-1).shape[0])
         for i in range(0, epoch):
             diff = np.zeros(x.reshape(-1).shape[0])
-            diff[perm[i]] = 0.1
+            diff[perm[i]] = epsilon
             diff = diff.reshape(x.shape)
 
             y_attack = None

@@ -1,3 +1,7 @@
+r"""
+This module implements the DeepAPI client for pretrained VGG16 model on CIFAR-10 dataset.
+"""
+
 import requests
 
 import numpy as np
@@ -12,6 +16,9 @@ from sklearn.preprocessing import LabelEncoder
 
 class VGG16Cifar10:
     def __init__(self, url):
+        """
+        - url: DeepAPI server URL
+        """
         self.url = url
 
         # cifar10 labels
@@ -26,6 +33,9 @@ class VGG16Cifar10:
         self.label_map = dict(zip(cifar10_labels, integer_encoded))
 
     def predict(self, X):
+        """
+        - X: numpy array of shape (N, 3, W, H)
+        """
         y_pred = []
         try:
             y_pred_temp = np.zeros([10])
@@ -49,8 +59,14 @@ class VGG16Cifar10:
         return np.array(y_pred)
 
     def print(self, y):
+        """
+        Print the prediction result.
+        """
         for i in range(0, len(y)):
             print('{:<15s}{:.5f}'.format(self.__label_encoder__.inverse_transform([i])[0], y[i]))
 
     def get_class_name(self, i):
+        """
+        Get the class name from the prediction label 0-10.
+        """
         return self.__label_encoder__.inverse_transform([i])[0]

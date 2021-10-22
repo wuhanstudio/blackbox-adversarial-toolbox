@@ -46,7 +46,7 @@
     </ul>
 
 
-                    <footer>Black-box Adversarial Toolbox</footer>
+                    <footer>Black-box Adversarial Toolbox v0.0.6</footer>
 
                     <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev">
                         built with <span class="visually-hidden">pdoc</span><img
@@ -58,26 +58,38 @@
     <main class="pdoc">
             <section>
                     <h1 class="modulename">
-bat<wbr>.<a href="./../attacks.html">attacks</a><wbr>.simba    </h1>
+<a href="./../../bat.html">bat</a><wbr>.<a href="./../attacks.html">attacks</a><wbr>.simba    </h1>
 
-                        <div class="docstring"><p>This module implements the black-box attack <code><a href="#SimBA">SimBA</a></code>.
-| Paper link: https://arxiv.org/abs/1905.07121</p>
+                        <div class="docstring"><p>This module implements the black-box attack <code><a href="#SimBA">SimBA</a></code>.</p>
 </div>
 
                         <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This module implements the black-box attack `SimBA`.</span>
-<span class="sd">| Paper link: https://arxiv.org/abs/1905.07121</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">class</span> <span class="nc">SimBA</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implementation of the `SimBA` attack. Paper link: https://arxiv.org/abs/1905.07121</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
-        
-    <span class="k">def</span> <span class="nf">attack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a class: `SimBA` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">attack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initiate the attack.</span>
+
+<span class="sd">        - x: input data</span>
+<span class="sd">        - model: model to attack</span>
+<span class="sd">        - epsilon: perturbation on each pixel</span>
+<span class="sd">        - epoch: number of iterations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="n">x_adv</span> <span class="o">=</span> <span class="n">x</span>
@@ -87,7 +99,7 @@ bat<wbr>.<a href="./../attacks.html">attacks</a><wbr>.simba    </h1>
         <span class="n">perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
             <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">diff</span><span class="p">[</span><span class="n">perm</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">diff</span><span class="p">[</span><span class="n">perm</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">epsilon</span>
             <span class="n">diff</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
             <span class="n">y_attack</span> <span class="o">=</span> <span class="kc">None</span>
@@ -127,10 +139,24 @@ bat<wbr>.<a href="./../attacks.html">attacks</a><wbr>.simba    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">SimBA</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implementation of the `SimBA` attack. Paper link: https://arxiv.org/abs/1905.07121</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
-        
-    <span class="k">def</span> <span class="nf">attack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a class: `SimBA` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">attack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initiate the attack.</span>
+
+<span class="sd">        - x: input data</span>
+<span class="sd">        - model: model to attack</span>
+<span class="sd">        - epsilon: perturbation on each pixel</span>
+<span class="sd">        - epoch: number of iterations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="n">x_adv</span> <span class="o">=</span> <span class="n">x</span>
@@ -140,7 +166,7 @@ bat<wbr>.<a href="./../attacks.html">attacks</a><wbr>.simba    </h1>
         <span class="n">perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
             <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">diff</span><span class="p">[</span><span class="n">perm</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">diff</span><span class="p">[</span><span class="n">perm</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">epsilon</span>
             <span class="n">diff</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
             <span class="n">y_attack</span> <span class="o">=</span> <span class="kc">None</span>
@@ -167,7 +193,9 @@ bat<wbr>.<a href="./../attacks.html">attacks</a><wbr>.simba    </h1>
 
         </details>
 
-    
+            <div class="docstring"><p>Implementation of the <code><a href="#SimBA">SimBA</a></code> attack. Paper link: https://arxiv.org/abs/1905.07121</p>
+</div>
+
 
                             <div id="SimBA.__init__" class="classattr">
                                         <div class="attr function"><a class="headerlink" href="#SimBA.__init__">#&nbsp;&nbsp</a>
@@ -179,12 +207,16 @@ bat<wbr>.<a href="./../attacks.html">attacks</a><wbr>.simba    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a class: `SimBA` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 </pre></div>
 
         </details>
 
-    
+            <div class="docstring"><p>Create a class: <code><a href="#SimBA">SimBA</a></code> instance.</p>
+</div>
+
 
                             </div>
                             <div id="SimBA.attack" class="classattr">
@@ -192,12 +224,20 @@ bat<wbr>.<a href="./../attacks.html">attacks</a><wbr>.simba    </h1>
 
         
             <span class="def">def</span>
-            <span class="name">attack</span><span class="signature">(self, x, model, epoch=1000)</span>:
+            <span class="name">attack</span><span class="signature">(self, x, model, epsilon=0.1, epoch=1000)</span>:
     </div>
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">attack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">attack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initiate the attack.</span>
+
+<span class="sd">        - x: input data</span>
+<span class="sd">        - model: model to attack</span>
+<span class="sd">        - epsilon: perturbation on each pixel</span>
+<span class="sd">        - epoch: number of iterations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="n">x_adv</span> <span class="o">=</span> <span class="n">x</span>
@@ -207,7 +247,7 @@ bat<wbr>.<a href="./../attacks.html">attacks</a><wbr>.simba    </h1>
         <span class="n">perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
             <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">diff</span><span class="p">[</span><span class="n">perm</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">diff</span><span class="p">[</span><span class="n">perm</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">epsilon</span>
             <span class="n">diff</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
             <span class="n">y_attack</span> <span class="o">=</span> <span class="kc">None</span>
@@ -234,7 +274,16 @@ bat<wbr>.<a href="./../attacks.html">attacks</a><wbr>.simba    </h1>
 
         </details>
 
-    
+            <div class="docstring"><p>Initiate the attack.</p>
+
+<ul>
+<li>x: input data</li>
+<li>model: model to attack</li>
+<li>epsilon: perturbation on each pixel</li>
+<li>epoch: number of iterations</li>
+</ul>
+</div>
+
 
                             </div>
                 </section>

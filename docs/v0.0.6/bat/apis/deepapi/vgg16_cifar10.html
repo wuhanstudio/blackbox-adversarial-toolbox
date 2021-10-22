@@ -52,7 +52,7 @@
     </ul>
 
 
-                    <footer>Black-box Adversarial Toolbox</footer>
+                    <footer>Black-box Adversarial Toolbox v0.0.6</footer>
 
                     <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev">
                         built with <span class="visually-hidden">pdoc</span><img
@@ -64,12 +64,18 @@
     <main class="pdoc">
             <section>
                     <h1 class="modulename">
-bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">deepapi</a><wbr>.vgg16_cifar10    </h1>
+<a href="./../../../bat.html">bat</a><wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">deepapi</a><wbr>.vgg16_cifar10    </h1>
 
-                
+                        <div class="docstring"><p>This module implements the DeepAPI client for pretrained VGG16 model on CIFAR-10 dataset.</p>
+</div>
+
                         <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+            <div class="codehilite"><pre><span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module implements the DeepAPI client for pretrained VGG16 model on CIFAR-10 dataset.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -83,6 +89,9 @@ bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">d
 
 <span class="k">class</span> <span class="nc">VGG16Cifar10</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        - url: DeepAPI server URL</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
 
         <span class="c1"># cifar10 labels</span>
@@ -97,6 +106,9 @@ bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">d
         <span class="bp">self</span><span class="o">.</span><span class="n">label_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">cifar10_labels</span><span class="p">,</span> <span class="n">integer_encoded</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        - X: numpy array of shape (N, 3, W, H)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">y_pred</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">y_pred_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">10</span><span class="p">])</span>
@@ -120,10 +132,16 @@ bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">d
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print the prediction result.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:&lt;15s}{:.5f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__label_encoder__</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">([</span><span class="n">i</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
 
     <span class="k">def</span> <span class="nf">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the class name from the prediction label 0-10.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__label_encoder__</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">([</span><span class="n">i</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
@@ -143,6 +161,9 @@ bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">d
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">VGG16Cifar10</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        - url: DeepAPI server URL</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
 
         <span class="c1"># cifar10 labels</span>
@@ -157,6 +178,9 @@ bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">d
         <span class="bp">self</span><span class="o">.</span><span class="n">label_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">cifar10_labels</span><span class="p">,</span> <span class="n">integer_encoded</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        - X: numpy array of shape (N, 3, W, H)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">y_pred</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">y_pred_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">10</span><span class="p">])</span>
@@ -180,10 +204,16 @@ bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">d
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print the prediction result.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:&lt;15s}{:.5f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__label_encoder__</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">([</span><span class="n">i</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
 
     <span class="k">def</span> <span class="nf">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the class name from the prediction label 0-10.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__label_encoder__</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">([</span><span class="n">i</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
@@ -201,6 +231,9 @@ bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">d
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        - url: DeepAPI server URL</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
 
         <span class="c1"># cifar10 labels</span>
@@ -217,7 +250,11 @@ bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">d
 
         </details>
 
-    
+            <div class="docstring"><ul>
+<li>url: DeepAPI server URL</li>
+</ul>
+</div>
+
 
                             </div>
                             <div id="VGG16Cifar10.predict" class="classattr">
@@ -231,6 +268,9 @@ bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">d
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        - X: numpy array of shape (N, 3, W, H)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">y_pred</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">y_pred_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">10</span><span class="p">])</span>
@@ -256,7 +296,11 @@ bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">d
 
         </details>
 
-    
+            <div class="docstring"><ul>
+<li>X: numpy array of shape (N, 3, W, H)</li>
+</ul>
+</div>
+
 
                             </div>
                             <div id="VGG16Cifar10.print" class="classattr">
@@ -270,13 +314,18 @@ bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">d
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print the prediction result.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:&lt;15s}{:.5f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__label_encoder__</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">([</span><span class="n">i</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
 </pre></div>
 
         </details>
 
-    
+            <div class="docstring"><p>Print the prediction result.</p>
+</div>
+
 
                             </div>
                             <div id="VGG16Cifar10.get_class_name" class="classattr">
@@ -290,12 +339,17 @@ bat<wbr>.<a href="./../../apis.html">apis</a><wbr>.<a href="./../deepapi.html">d
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the class name from the prediction label 0-10.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__label_encoder__</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">([</span><span class="n">i</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
         </details>
 
-    
+            <div class="docstring"><p>Get the class name from the prediction label 0-10.</p>
+</div>
+
 
                             </div>
                 </section>
