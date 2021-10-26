@@ -1,7 +1,5 @@
 <img src="https://bat.wuhanstudio.uk/images/bat.png" width=300px style="float: left;" >
 
-<h3> <a href="https://bat.wuhanstudio.uk/"> Documentation </a>
-
 # Black-box Adversarial Toolbox (BAT)
 
 
@@ -46,4 +44,6 @@ x_adv = simba.attack(x, epsilon=0.1, max_it=1000)
 x_adv = simba.attack(x, epsilon=0.1, max_it=1000, distributed=True , batch=50, max_workers=10)
 
 ```
+
+<h3> <a href="https://bat.wuhanstudio.uk/"> Documentation </a>
 
