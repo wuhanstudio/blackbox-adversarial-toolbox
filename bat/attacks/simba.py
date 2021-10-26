@@ -20,6 +20,9 @@ class SimBA():
         self.classifier = classifier
     
     def init(self, x):
+        """
+        Initialize the attack.
+        """
         y_pred = self.classifier.predict(np.array([x]))[0]
 
         x_adv = x
@@ -31,6 +34,9 @@ class SimBA():
         return x_adv, y_pred, y_list, perm
 
     def step(self, x_adv, y_pred, y_list, perm, index, epsilon=0.1):
+        """
+        Single step for non-distributed attack.
+        """
         y_adv = None
         x_adv_new = x_adv
 
@@ -54,6 +60,9 @@ class SimBA():
         return x_adv_new, y_adv, y_list
 
     def batch(self, x_adv, y_pred, y_list, perm, index, epsilon=0.1, max_workers=10, batch=50):
+        """
+        Single step for distributed attack.
+        """
         noise = np.zeros(x_adv.shape)
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:

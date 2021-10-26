@@ -1,7 +1,9 @@
 import numpy as np
 
 def proj_lp(v, xi=0.1, p=2):
-    # SUPPORTS only p = 2 and p = Inf for now
+    """
+    SUPPORTS only p = 2 and p = Inf for now
+    """
     if p == 2:
         v = v * min(1, xi/np.linalg.norm(v.flatten('C')))
         # v = v / np.linalg.norm(v.flatten(1)) * xi

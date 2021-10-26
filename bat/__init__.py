@@ -10,6 +10,10 @@ This module implements several API clients for Deep Learning cloud API services,
 
 This module implements several black-box attacks against Deep Learning models.
 
+## bat.utils
+
+This module implements several utilities such as proj_lp.
+
 '''
 
 # Project Imports
@@ -17,4 +21,4 @@ from bat import apis
 from bat import attacks
 
 # Semantic Version
-__version__ = "0.0.7"
+__version__ = "0.0.8"
