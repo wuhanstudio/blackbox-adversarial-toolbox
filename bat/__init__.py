@@ -17,4 +17,4 @@ from bat import apis
 from bat import attacks
 
 # Semantic Version
-__version__ = "0.0.6"
+__version__ = "0.0.7"
