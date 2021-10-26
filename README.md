@@ -1,6 +1,9 @@
 <img src="https://bat.wuhanstudio.uk/images/bat.png" width=300px style="float: left;" >
 
+<h3> <a href="https://bat.wuhanstudio.uk/"> Documentation </a>
+
 # Black-box Adversarial Toolbox (BAT)
+
 
 [![Build Status](https://app.travis-ci.com/wuhanstudio/blackbox-adversarial-toolbox.svg?branch=master)](https://app.travis-ci.com/wuhanstudio/blackbox-adversarial-toolbox)
 [![PyPI version](https://badge.fury.io/py/blackbox-adversarial-toolbox.svg)](https://badge.fury.io/py/blackbox-adversarial-toolbox)
