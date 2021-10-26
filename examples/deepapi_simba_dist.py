@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
     # SimBA Attack
     simba = SimBA(model)
-    x_adv = simba.attack_dist(x, batch=50, max_it=1000, max_workers=10)
+    x_adv = simba.attack(x, epsilon=0.1, max_it=1000, distributed=True , batch=50, max_workers=10)
 
     # Print result after attack
     y_pred = model.predict(np.array([x_adv]))[0]

@@ -22,7 +22,11 @@ pip install blackbox-adversarial-toolbox
 
 
 ```python
+from PIL import Image
+import numpy as np
+
 from bat.attacks import SimBA
+from bat.apis.deepapi import VGG16Cifar10
 
 # Load Image [0.0, 1.0]
 x = np.asarray(Image.open(args.image).resize((32, 32))) / 255.0
@@ -31,7 +35,11 @@ x = np.asarray(Image.open(args.image).resize((32, 32))) / 255.0
 model = VGG16Cifar10(args.url + "/vgg16_cifar10")
 
 # SimBA Attack
-simba = SimBA()
-x_adv = simba.attack(x, model)
+simba = SimBA(model)
+x_adv = simba.attack(x, epsilon=0.1, max_it=1000)
+
+# Distributed SimBA Attack
+x_adv = simba.attack(x, epsilon=0.1, max_it=1000, distributed=True , batch=50, max_workers=10)
+
 ```
 

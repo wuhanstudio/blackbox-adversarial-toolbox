@@ -78,46 +78,31 @@ class SimBA():
 
         return x_adv, y_adv, y_list
 
-    def attack_dist(self, x, epsilon=0.1, batch=50, max_workers=10, max_it=1000):
+    def attack(self, x, epsilon=0.1, max_it=1000, distributed=False, batch=50, max_workers=10):
         """
         Initiate the attack.
 
         - x: input data
         - epsilon: perturbation on each pixel
+        - max_it: number of iterations
+        - distributed: if True, use distributed attack
         - batch: number of queries per worker
         - max_workers: number of workers
-        - max_it: number of iterations
         """
 
         x_adv, y_pred, y_list, perm = self.init(x)
 
-        pbar = tqdm(range(0, max_it, batch), desc="Distributed SimBA")
+        if distributed:
+            pbar = tqdm(range(0, max_it, batch), desc="Distributed SimBA")
+        else:
+            pbar = tqdm(range(0, max_it), desc="SimBA")
+
         for i in pbar:
 
-            x_adv, y_adv, y_list = self.batch(x_adv, y_pred, y_list, perm, i, epsilon, max_workers, batch)
-
-            pbar.set_postfix({'origin prob': y_list[-1], 'l2 norm': np.sqrt(np.power(x_adv - x, 2).sum())})
-
-            # Early break
-            if(np.argmax(y_adv) != np.argmax(y_pred)):
-                break
-     
-        return x_adv
-
-    def attack(self, x, epsilon=0.1, max_it=1000):
-        """
-        Initiate the attack.
-
-        - x: input data
-        - epsilon: perturbation on each pixel
-        - max_it: number of iterations
-        """
-
-        x_adv, y_pred, y_list, perm = self.init(x)
-
-        pbar = tqdm(range(0, max_it), desc="SimBA")
-        for i in pbar:
-            x_adv, y_adv, y_list = self.step(x_adv, y_pred, y_list, perm, i, epsilon)
+            if distributed:
+                x_adv, y_adv, y_list = self.batch(x_adv, y_pred, y_list, perm, i, epsilon, max_workers, batch)
+            else:
+                x_adv, y_adv, y_list = self.step(x_adv, y_pred, y_list, perm, i, epsilon)
 
             pbar.set_postfix({'origin prob': y_list[-1], 'l2 norm': np.sqrt(np.power(x_adv - x, 2).sum())})
 
@@ -125,5 +110,5 @@ class SimBA():
             if y_adv is not None:
                 if(np.argmax(y_adv) != np.argmax(y_pred)):
                     break
-
+     
         return x_adv
