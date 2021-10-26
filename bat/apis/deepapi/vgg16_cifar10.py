@@ -62,6 +62,7 @@ class VGG16Cifar10:
         """
         Print the prediction result.
         """
+        print()
         for i in range(0, len(y)):
             print('{:<15s}{:.5f}'.format(self.__label_encoder__.inverse_transform([i])[0], y[i]))
 

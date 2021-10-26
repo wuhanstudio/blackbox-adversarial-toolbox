@@ -18,7 +18,7 @@ if __name__ == '__main__':
     parser.add_argument(
         'url',
         type=str,
-        help='API root url',
+        help='API root url (e.g. https://api.wuhanstudio.uk)',
     )
     parser.add_argument(
         'image',
@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
     # SimBA Attack
     simba = SimBA(model)
-    x_adv = simba.attack(x, epsilon=0.1, max_it=1000)
+    x_adv = simba.attack_dist(x, batch=50, max_it=1000, max_workers=10)
 
     # Print result after attack
     y_pred = model.predict(np.array([x_adv]))[0]
