@@ -22,17 +22,18 @@ pip install blackbox-adversarial-toolbox
 
 
 ```python
-from PIL import Image
 import numpy as np
+from PIL import Image
 
 from bat.attacks import SimBA
 from bat.apis.deepapi import VGG16Cifar10
 
 # Load Image [0.0, 1.0]
-x = np.asarray(Image.open(args.image).resize((32, 32))) / 255.0
+x = np.asarray(Image.open('dog.jpg').resize((32, 32))) / 255.0
 
 # Initialize the Cloud API Model
-model = VGG16Cifar10(args.url + "/vgg16_cifar10")
+DEEP_API_URL = 'https://api.wuhanstudio.uk'
+model = VGG16Cifar10(DEEP_API_URL + "/vgg16_cifar10")
 
 # SimBA Attack
 simba = SimBA(model)
