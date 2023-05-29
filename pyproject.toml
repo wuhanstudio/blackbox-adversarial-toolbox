@@ -8,7 +8,9 @@ requires = [
     "tqdm",
     "six",
     "setuptools",
-    "click"
+    "click",
+    "google-cloud-vision",
+    "validators"
 ]
 build-backend = "setuptools.build_meta"
 
@@ -39,7 +41,9 @@ dependencies = [
     "tqdm",
     "six",
     "setuptools",
-    "click"
+    "click",
+    "google-cloud-vision",
+    "validators"
 ]
 
 [project.scripts]

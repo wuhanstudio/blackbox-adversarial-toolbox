@@ -18,5 +18,6 @@ y_pred = model.predict(np.array([x]))[0]
 
 '''
 
-
 from bat.apis import deepapi
+from bat.apis import google
+from bat.apis import imagga

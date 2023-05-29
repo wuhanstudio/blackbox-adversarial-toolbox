@@ -10,6 +10,7 @@
 
 A Python Library for Deep Learning Security that focuses on Black-box attacks.
 
+
 ## Installation
 
 ```python
@@ -17,10 +18,23 @@ pip install blackbox-adversarial-toolbox
 ```
 
 
+## Usage (CLI)
 
-## Usage
+```
+Usage: bat [OPTIONS] COMMAND [ARGS]...
 
+  The CLI tool for Black-box Adversarial Toolbox (BAT).
 
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  api      Manage Cloud APIs
+  attack   Manage Attacks
+  example  Manage Examples
+```
+
+## Usage (Python)
 
 ```python
 import numpy as np
@@ -33,8 +47,8 @@ from bat.apis.deepapi import VGG16Cifar10
 x = np.asarray(Image.open('dog.jpg').resize((32, 32))) / 255.0
 
 # Initialize the Cloud API Model
-DEEP_API_URL = 'https://api.wuhanstudio.uk'
-model = VGG16Cifar10(DEEP_API_URL + "/vgg16_cifar10")
+DEEP_API_URL = 'http://localhost:8080'
+model = DeepAPI_VGG16_Cifar10(DEEP_API_URL)
 
 # SimBA Attack
 simba = SimBA(model)
@@ -46,4 +60,3 @@ x_adv = simba.attack(x, epsilon=0.1, max_it=1000, distributed=True , batch=50, m
 ```
 
 <h3> <a href="https://bat.wuhanstudio.uk/"> Documentation </a>
-

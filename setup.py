@@ -27,7 +27,9 @@ install_requires = [
     "tqdm",
     "six",
     "setuptools",
-    "click"
+    "click",
+    "google-cloud-vision",
+    "validators"
 ]
 
 setuptools.setup(
