@@ -62,7 +62,7 @@ def api_run_deepapi():
         if len(index) == 0:
             index = 1
         else:
-            while not index.isdigit() or int(index) >= len(bat_deepapi_model_list):
+            while not index.isdigit() or int(index) > len(bat_deepapi_model_list):
                 index = input(f"Model [{index}] does not exist. Please try again: ")
 
         # Get the DeepAPI server url
