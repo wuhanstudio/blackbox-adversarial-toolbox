@@ -27,6 +27,7 @@ install_requires = [
     "tqdm",
     "six",
     "setuptools",
+    "click"
 ]
 
 setuptools.setup(
@@ -44,6 +45,11 @@ setuptools.setup(
         "dev": [
             "pytest>=3.6",
         ]
+    },
+    entry_points={
+        'console_scripts': [
+            'bat=bat._main:main',
+        ],
     },
     packages=setuptools.find_packages(),
     long_description=long_description,

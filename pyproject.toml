@@ -1,0 +1,50 @@
+[build-system]
+requires = [
+    "numpy>=1.18.0",
+    "scipy>=1.4.1",
+    "scikit-learn>=0.22.2",
+    "pillow",
+    "requests",
+    "tqdm",
+    "six",
+    "setuptools",
+    "click"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blackbox-adversarial-toolbox"
+version = "0.0.8"
+authors = [
+  { name="wuhanstudio", email="wuhanstudios@gmail.com" },
+]
+maintainers = [
+  { name="wuhanstudio", email="wuhanstudios@gmail.com" },
+]
+description = "Black-box Adversarial Toolbox (BAT) - Python Library for Deep Learning Security"
+readme = "README.md"
+license = {text = "MIT License"}
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy>=1.18.0",
+    "scipy>=1.4.1",
+    "scikit-learn>=0.22.2",
+    "pillow",
+    "requests",
+    "tqdm",
+    "six",
+    "setuptools",
+    "click"
+]
+
+[project.scripts]
+bat = "bat._main:main"
+
+[project.urls]
+"Homepage" = "https://github.com/wuhanstudio/blackbox-adversarial-toolbox"
+"Bug Tracker" = "https://github.com/wuhanstudio/blackbox-adversarial-toolbox/issues"
