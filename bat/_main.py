@@ -156,7 +156,7 @@ def attack_list():
     """List supported Attacks"""
     max_len = max([len(x[0]) for x in bat_attack_list])
     for i, attack in enumerate(bat_attack_list, start=1):
-        print('{} : {:<{w}s} [{}]'.format(i, attack[0], attack[1], w=max_len))
+        print('{} : {:<{w}s}\t{}'.format(i, attack[0], attack[1], w=max_len))
 
 # bat example
 @click.group()
@@ -170,7 +170,7 @@ def example_list():
     """List examples"""
     max_len = max([len(x[0]) for x in bat_example_list])
     for i, example in enumerate(bat_example_list, start=1):
-        print('{} : {:<{w}s} [{}]'.format(i, example[0], example[1], w=max_len))
+        print('{} : {:<{w}s}\t{}'.format(i, example[0], example[1], w=max_len))
 
 # bat exmaple run
 @example.group('run')

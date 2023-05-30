@@ -68,6 +68,7 @@ def simba_attack_deepapi():
 
         # Save image
         Image.fromarray((x_adv[0]).astype(np.uint8)).save('result.jpg')
+        print("The adversarial image is saved as result.jpg")
 
     except KeyboardInterrupt as e:
         print()
