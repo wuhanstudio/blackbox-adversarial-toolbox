@@ -7,5 +7,5 @@ Currently Supported Attacks:
 
 '''
 
-from bat.attacks.simba import SimBA
+from bat.attacks.simba_attack import SimBA
 from bat.attacks.base_attack import BaseAttack
