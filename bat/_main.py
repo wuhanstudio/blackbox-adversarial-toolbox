@@ -4,6 +4,7 @@ import validators
 import numpy as np
 from PIL import Image
 
+from bat.apis.imagga import Imagga
 from bat.apis.deepapi import DeepAPI_VGG16_Cifar10, DeepAPI_VGG16_ImageNet, DeepAPI_Resnet50_ImageNet, DeepAPI_Inceptionv3_ImageNet
 
 bat_api_list = {
@@ -94,7 +95,29 @@ def api_run_deepapi():
     except KeyboardInterrupt as e:
         print()
         return
-    
+
+# bat api run imagga
+@api_run.command('imagga')
+def api_run_deepapi():
+    """Send an image to Imagga auto-tagging API"""
+    api_key = input(f"Please input the Imagga API Key: ")
+    api_secret = input(f"Please input the Imagga API Secret: ")
+    imagga_client = Imagga(api_key, api_secret, concurrency=2)
+
+    # Get the image file
+    try:
+        file = input(f"Please input the image file: ")
+        while len(file) == 0:
+            file = input(f"Please input the image file: ")
+    except Exception as e:
+        print(e)
+        return
+
+    # Make predictions
+    y = imagga_client.predict(file)
+
+    # Print results
+    imagga_client.print(y)
 
 # bat attack
 @click.group()

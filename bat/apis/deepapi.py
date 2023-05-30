@@ -136,7 +136,7 @@ class DeepAPIBase:
         """
         Print the prediction result.
         """
-        max_len, _, = max([(len(x),x) for x in self.labels])
+        max_len = max([len(x) for x in self.labels])
 
         print()
 
