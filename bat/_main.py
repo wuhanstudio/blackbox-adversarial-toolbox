@@ -9,6 +9,7 @@ from bat.apis.google import CloudVision
 from bat.apis.deepapi import bat_deepapi_model_list
 
 from bat.examples.simba_attack_deepapi import simba_attack_deepapi
+from bat.examples.bandits_attack_deepapi import bandits_attack_deepapi
 
 bat_api_list = {
     'deepapi': 'An open-source image classification cloud service for research on black-box adversarial attacks.',
@@ -24,6 +25,7 @@ bat_attack_list = [
 
 bat_example_list = [
     ('simba_deepapi', 'SimBA Attack against DeepAPI'),
+    ('bandits_deepapi', 'Bandits Attack against DeepAPI'),
 ]
 
 # Main CLI (bat)
@@ -184,6 +186,11 @@ def example_run_simba_deepapi():
     """A Simple Black-box Adversarial Attacks"""
     simba_attack_deepapi()
 
+# bat exmaple run bandits_deepapi
+@example_run.command('bandits_deepapi')
+def example_run_bandits_deepapi():
+    """A Simple Black-box Adversarial Attacks"""
+    bandits_attack_deepapi()
 
 def main():
     main_cli.add_command(api)
