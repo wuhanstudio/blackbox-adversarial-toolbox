@@ -59,7 +59,7 @@ def square_attack_deepapi():
         x_adv, _ = square_attack.attack(x, np.array([y_pred]), False, epsilon = 0.05, max_it=3000, concurrency=8)
 
         # Save image
-        Image.fromarray((x_adv[0]).astype(np.uint8)).save('result.jpg')
+        Image.fromarray((x_adv[0]).astype(np.uint8)).save('result.jpg', subsampling=0, quality=100)
         print("The adversarial image is saved as result.jpg")
 
     except Exception as e:
