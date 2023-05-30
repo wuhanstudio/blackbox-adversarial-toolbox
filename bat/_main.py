@@ -6,11 +6,11 @@ from PIL import Image
 
 from bat.apis.deepapi import DeepAPI_VGG16_Cifar10, DeepAPI_VGG16_ImageNet, DeepAPI_Resnet50_ImageNet, DeepAPI_Inceptionv3_ImageNet
 
-bat_api_list = [
-    'deepapi',
-    'google',
-    'imagga'
-]
+bat_api_list = {
+    'deepapi': 'An open-source image classification cloud service for research on black-box adversarial attacks.',
+    'google': 'Google Cloud Vision AI.',
+    'imagga': 'Imagga automatic tagging API.'
+}
 
 bat_deepapi_model_list = {
     1: ['vgg16_cifar10', DeepAPI_VGG16_Cifar10],
@@ -41,7 +41,9 @@ def api():
 @api.command('list')
 def api_list():
     """List supported Cloud APIs"""
-    click.echo(bat_api_list)
+    max_len = max([len(x) for x in bat_api_list.keys()])
+    for i, api in enumerate(bat_api_list.keys(), start=1):
+        print('{} : {:<{w}s}\t{}'.format(i, api, bat_api_list[api], w=max_len+1))
 
 # bat api run
 @api.group('run')
