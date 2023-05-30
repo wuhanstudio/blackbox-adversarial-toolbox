@@ -5,6 +5,7 @@ import numpy as np
 from PIL import Image
 
 from bat.apis.imagga import Imagga
+from bat.apis.google import CloudVision
 from bat.apis.deepapi import DeepAPI_VGG16_Cifar10, DeepAPI_VGG16_ImageNet, DeepAPI_Resnet50_ImageNet, DeepAPI_Inceptionv3_ImageNet
 
 bat_api_list = {
@@ -90,7 +91,9 @@ def api_run_deepapi():
         deepapi_model = bat_deepapi_model_list[int(index)][1](deepapi_url)
     
         y = deepapi_model.predict(np.array([x]))[0]
-        deepapi_model.print(y)
+
+        if y is not None:
+            deepapi_model.print(y)
 
     except KeyboardInterrupt as e:
         print()
@@ -117,7 +120,30 @@ def api_run_deepapi():
     y = imagga_client.predict(file)
 
     # Print results
-    imagga_client.print(y)
+    if y is not None:
+        imagga_client.print(y)
+
+# bat api run google
+@api_run.command('google')
+def api_run_google():
+    """Send an image to Google Cloud Vision"""
+    vision_client = CloudVision()
+
+    # Get the image file
+    try:
+        file = input(f"Please input the image file: ")
+        while len(file) == 0:
+            file = input(f"Please input the image file: ")
+    except Exception as e:
+        print(e)
+        return
+
+    # Make predictions
+    y = vision_client.predict(file)
+    
+    # Print resuilts
+    if y is not None:
+        vision_client.print(y)
 
 # bat attack
 @click.group()
