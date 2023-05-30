@@ -22,9 +22,9 @@ bat_deepapi_model_list = {
 }
 
 bat_attack_list = [
-    'simba',
-    'square',
-    'bandits'
+    ('SimBA', 'Local Search', 'A Simple Black-box Adversarial Attacks'),
+    ('Square Attack', 'Local Search', 'A query-efficient black-box adversarial attack via random search.'),
+    ('Bandits Atack', 'Gradient Estimation', 'Black-Box Adversarial Attacks with Bandits and Priors')
 ]
 
 # Main CLI (bat)
@@ -155,7 +155,9 @@ def attack():
 @attack.command('list')
 def attack_list():
     """List supported Attacks"""
-    click.echo(bat_attack_list)
+    max_len = max([len(x[0]) for x in bat_attack_list])
+    for attack in bat_attack_list:
+        print('{:<{w}s} [{}]'.format(attack[0], attack[1], w=max_len))
 
 # bat example
 @click.group()
