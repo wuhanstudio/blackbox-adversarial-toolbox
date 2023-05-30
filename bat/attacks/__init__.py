@@ -8,3 +8,4 @@ Currently Supported Attacks:
 '''
 
 from bat.attacks.simba import SimBA
+from bat.attacks.base_attack import BaseAttack

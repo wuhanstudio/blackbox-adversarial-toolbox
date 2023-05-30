@@ -43,8 +43,8 @@ from PIL import Image
 from bat.attacks import SimBA
 from bat.apis.deepapi import DeepAPI_VGG16_Cifar10
 
-# Load Image [0.0, 1.0]
-x = np.asarray(Image.open('dog.jpg').resize((32, 32))) / 255.0
+# Load Image
+x = np.asarray(Image.open("dog.jpg").convert('RGB'))
 
 # Initialize the Cloud API Model
 DEEP_API_URL = 'http://localhost:8080'
