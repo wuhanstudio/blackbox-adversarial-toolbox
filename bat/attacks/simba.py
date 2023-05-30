@@ -58,7 +58,7 @@ class SimBA(BaseAttack):
         """
         super().__init__(classifier)
 
-    def init(self, x):
+    def init(self, x, max_it):
         """
         Initialize the attack.
         """
@@ -69,6 +69,7 @@ class SimBA(BaseAttack):
         perm = []
         for xi in x:
             perm.append(np.random.permutation(xi.reshape(-1).shape[0]))
+            assert len(perm[-1]) > max_it, 'The maxinum number of iteration should be smaller than the image dimension.'
 
         return x_adv, y_pred, perm
 
@@ -165,7 +166,7 @@ class SimBA(BaseAttack):
             self.tb = TensorBoardLogger(log_dir)
 
         # Initialize attack
-        x_adv, y_pred, perm = self.init(x)
+        x_adv, y_pred, perm = self.init(x, max_it)
 
         # Compute number of images correctly classified
         y_pred_classes = np.argmax(y_pred, axis=1)
