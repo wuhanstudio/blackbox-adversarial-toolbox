@@ -10,6 +10,7 @@ from bat.apis.deepapi import bat_deepapi_model_list
 
 from bat.examples.simba_attack_deepapi import simba_attack_deepapi
 from bat.examples.bandits_attack_deepapi import bandits_attack_deepapi
+from bat.examples.square_attack_deepapi import square_attack_deepapi
 
 bat_api_list = {
     'deepapi': 'An open-source image classification cloud service for research on black-box adversarial attacks.',
@@ -26,6 +27,7 @@ bat_attack_list = [
 bat_example_list = [
     ('simba_deepapi', 'SimBA Attack against DeepAPI'),
     ('bandits_deepapi', 'Bandits Attack against DeepAPI'),
+    ('square_deepapi', 'Square Attack against DeepAPI'),
 ]
 
 # Main CLI (bat)
@@ -183,13 +185,19 @@ def example_run():
 # bat exmaple run simba_deepapi
 @example_run.command('simba_deepapi')
 def example_run_simba_deepapi():
-    """A Simple Black-box Adversarial Attacks"""
+    """SimBA Attack against DeepAPI"""
     simba_attack_deepapi()
 
 # bat exmaple run bandits_deepapi
 @example_run.command('bandits_deepapi')
 def example_run_bandits_deepapi():
-    """A Simple Black-box Adversarial Attacks"""
+    """Bandits Attack against DeepAPI"""
+    bandits_attack_deepapi()
+
+# bat exmaple run square_deepapi
+@example_run.command('square_deepapi')
+def example_run_bandits_deepapi():
+    """Square Attack against DeepAPI"""
     bandits_attack_deepapi()
 
 def main():
