@@ -221,3 +221,11 @@ class DeepAPI_VGG16_ImageNet(DeepAPI_ImageNet):
 
         url_parse = urlparse(url)
         self.url = urljoin(url_parse.scheme + '://' + url_parse.netloc, 'vgg16')
+
+
+bat_deepapi_model_list = {
+    1: ['vgg16_cifar10', DeepAPI_VGG16_Cifar10],
+    2: ['vgg16_imagenet', DeepAPI_VGG16_ImageNet],
+    3: ['resnet50_imagenet', DeepAPI_Resnet50_ImageNet],
+    4: ['inceptionv3_imagenet', DeepAPI_Inceptionv3_ImageNet]
+}

@@ -6,7 +6,9 @@ from PIL import Image
 
 from bat.apis.imagga import Imagga
 from bat.apis.google import CloudVision
-from bat.apis.deepapi import DeepAPI_VGG16_Cifar10, DeepAPI_VGG16_ImageNet, DeepAPI_Resnet50_ImageNet, DeepAPI_Inceptionv3_ImageNet
+from bat.apis.deepapi import bat_deepapi_model_list
+
+from bat.examples.simba_attack_deepapi import simba_attack_deepapi
 
 bat_api_list = {
     'deepapi': 'An open-source image classification cloud service for research on black-box adversarial attacks.',
@@ -14,17 +16,14 @@ bat_api_list = {
     'imagga': 'Imagga automatic tagging API.'
 }
 
-bat_deepapi_model_list = {
-    1: ['vgg16_cifar10', DeepAPI_VGG16_Cifar10],
-    2: ['vgg16_imagenet', DeepAPI_VGG16_ImageNet],
-    3: ['resnet50_imagenet', DeepAPI_Resnet50_ImageNet],
-    4: ['inceptionv3_imagenet', DeepAPI_Inceptionv3_ImageNet]
-}
-
 bat_attack_list = [
     ('SimBA', 'Local Search', 'A Simple Black-box Adversarial Attacks'),
     ('Square Attack', 'Local Search', 'A query-efficient black-box adversarial attack via random search.'),
     ('Bandits Atack', 'Gradient Estimation', 'Black-Box Adversarial Attacks with Bandits and Priors')
+]
+
+bat_example_list = [
+    ('simba_deepapi', 'SimBA Attack against DeepAPI'),
 ]
 
 # Main CLI (bat)
@@ -156,8 +155,8 @@ def attack():
 def attack_list():
     """List supported Attacks"""
     max_len = max([len(x[0]) for x in bat_attack_list])
-    for attack in bat_attack_list:
-        print('{:<{w}s} [{}]'.format(attack[0], attack[1], w=max_len))
+    for i, attack in enumerate(bat_attack_list, start=1):
+        print('{} : {:<{w}s} [{}]'.format(i, attack[0], attack[1], w=max_len))
 
 # bat example
 @click.group()
@@ -169,13 +168,22 @@ def example():
 @example.command('list')
 def example_list():
     """List examples"""
-    pass
+    max_len = max([len(x[0]) for x in bat_example_list])
+    for i, example in enumerate(bat_example_list, start=1):
+        print('{} : {:<{w}s} [{}]'.format(i, example[0], example[1], w=max_len))
 
 # bat exmaple run
-@example.command('run')
+@example.group('run')
 def example_run():
     """Run examples"""
     pass
+
+# bat exmaple run simba_deepapi
+@example_run.command('simba_deepapi')
+def example_run_simba_deepapi():
+    """A Simple Black-box Adversarial Attacks"""
+    simba_attack_deepapi()
+
 
 def main():
     main_cli.add_command(api)
