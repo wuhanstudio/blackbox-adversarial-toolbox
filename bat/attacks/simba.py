@@ -138,7 +138,7 @@ class SimBA(BaseAttack):
 
         return x_adv, y_adv
 
-    def attack(self, x, y, epsilon=0.05, max_it=1000, log_dir=None, concurrency=1):
+    def attack(self, x, y, epsilon=0.05, max_it=1000, concurrency=1):
         """
         Initiate the attack.
 
@@ -159,12 +159,6 @@ class SimBA(BaseAttack):
 
         assert n_targets > 0
 
-        # Tensorboard
-        self.tb = None
-        if log_dir is not None:
-            from bat.utils.logger import TensorBoardLogger
-            self.tb = TensorBoardLogger(log_dir)
-
         # Initialize attack
         x_adv, y_pred, perm = self.init(x, max_it)
 
@@ -183,13 +177,6 @@ class SimBA(BaseAttack):
             n_queries = np.ones(len(x))  # ones because we have already used 1 query
 
             mean_nq, mean_nq_ae = np.mean(n_queries), np.mean(n_queries)
-
-            if self.tb is not None:
-                self.tb.log_scalar('Accuracy', 0, 0)
-                self.tb.log_scalar('Current Accuracy', 0, 0)
-                self.tb.log_scalar('Total Mean Number of Queries', mean_nq, 0)
-                self.tb.log_scalar('Success Mean Number of Queries', mean_nq_ae, 0)
-                self.tb.log_scalar('Mean Higest Prediction', y_pred[correct_classified].max(axis=1).mean(), 0)
 
             return x
 
@@ -263,13 +250,6 @@ class SimBA(BaseAttack):
 
             acc = not_dones_mask.sum() / correct_classified_mask.sum()
             mean_nq, mean_nq_ae = np.mean(total_queries), np.mean(total_queries *success_mask)
-
-            if self.tb is not None:
-                self.tb.log_scalar('Accuracy', acc, i_iter)
-                self.tb.log_scalar('Total Number of Queries', total_queries.sum(), i_iter)
-                self.tb.log_scalar('Total Mean Number of Queries', mean_nq, i_iter)
-                self.tb.log_scalar('Success Mean Number of Queries', mean_nq_ae, i_iter)
-                self.tb.log_scalar('Mean Higest Prediction', y_pred[correct_classified].max(axis=1).mean(), i_iter)
 
             # Early break
             if current_success_rate == 1.0:
