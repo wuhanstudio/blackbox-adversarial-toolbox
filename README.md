@@ -33,6 +33,24 @@ Commands:
   attack   Manage Attacks
   example  Manage Examples
 ```
+Useful commands:
+```
+# List supported Cloud APIs
+bat api list
+
+# List suported Attacks
+bat attack list
+
+# Test Cloud APIs
+bat api run deepapi
+bat api run google
+bat api run imagga
+
+# Run exmaples
+bat example run simba_deepapi
+bat example run bandits_deepapi
+bat example run square_deepapi
+```
 
 ## Usage (Python)
 
@@ -45,18 +63,21 @@ from bat.apis.deepapi import DeepAPI_VGG16_Cifar10
 
 # Load Image
 x = np.asarray(Image.open("dog.jpg").convert('RGB'))
+x = np.array([x])
 
 # Initialize the Cloud API Model
 DEEP_API_URL = 'http://localhost:8080'
 model = DeepAPI_VGG16_Cifar10(DEEP_API_URL)
 
+# Get Preditction
+y_pred = model.predict(x)[0]
+
 # SimBA Attack
-simba = SimBA(model)
 x_adv = simba.attack(x, epsilon=0.1, max_it=1000)
 
 # Distributed SimBA Attack
-x_adv = simba.attack(x, epsilon=0.1, max_it=1000, distributed=True , batch=50, max_workers=10)
-
+simba = SimBA(model)
+x_adv = simba.attack(x, np.argmax(y_pred), epsilon=0.05, max_it=10)
 ```
 
 <h3> <a href="https://bat.wuhanstudio.uk/"> Documentation </a>
