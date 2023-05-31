@@ -36,20 +36,20 @@ Commands:
 Useful commands:
 ```
 # List supported Cloud APIs
-bat api list
+$ bat api list
 
-# List suported Attacks
-bat attack list
+# List supported Attacks
+$ bat attack list
 
 # Test Cloud APIs
-bat api run deepapi
-bat api run google
-bat api run imagga
+$ bat api run deepapi
+$ bat api run google
+$ bat api run imagga
 
 # Run exmaples
-bat example run simba_deepapi
-bat example run bandits_deepapi
-bat example run square_deepapi
+$ bat example run simba_deepapi
+$ bat example run bandits_deepapi
+$ bat example run square_deepapi
 ```
 
 ## Usage (Python)
