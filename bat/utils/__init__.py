@@ -1,5 +1,5 @@
 r'''
-Utility functions for BAT.
+This module implements utility functions.
 
 - proj_lp
 '''

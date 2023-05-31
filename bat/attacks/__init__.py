@@ -1,11 +1,16 @@
 r'''
-This module implements several black-box attacks against Deep Learning models.
+This module implements Distributed Black-box Attacks against Deep Learning models.
 
-Currently Supported Attacks:
+Local Search:
 
-- [SimpleBA](https://arxiv.org/abs/1905.07121)
+- SimBA Attack [(Guo et al., 2019)](https://arxiv.org/abs/1905.07121)
+- Square Attack [(Andriushchenko et al., 2020)](https://arxiv.org/abs/1912.00049)
 
+Gradient Estimation:
+
+- Bandits Attack [(Ilyas et al., 2019)](https://arxiv.org/abs/1807.07978)
 '''
+
 from bat.attacks.base_attack import BaseAttack
 
 from bat.attacks.simba_attack import SimBA

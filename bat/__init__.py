@@ -1,18 +1,30 @@
 r'''
-Black-box Adversarial Toolbox (BAT) is a python library for Deep Learning Security that focuses on black-box attacks.
+Black-box Adversarial Toolbox (BAT) is a python library for **Distrubuted Black-box Attacks** against Deep Learning Cloud Services.
 
 ## bat.apis
 
-This module implements several API clients for Deep Learning cloud API services, so that we can use `model.predict()` to get prediction results from API servers.
+This module implements Python clients of several Cloud APIs, so that we can use `model.predict()` to get predictions from API servers.
 
+- DeepAPI
+- Google Cloud Vision
+- Imagga
 
 ## bat.attacks
 
-This module implements several black-box attacks against Deep Learning models.
+This module implements Distributed Black-box Attacks against Deep Learning models.
+
+Local Search:
+
+- SimBA Attack [(Guo et al., 2019)](https://arxiv.org/abs/1905.07121)
+- Square Attack [(Andriushchenko et al., 2020)](https://arxiv.org/abs/1912.00049)
+
+Gradient Estimation:
+
+- Bandits Attack [(Ilyas et al., 2019)](https://arxiv.org/abs/1807.07978)
 
 ## bat.utils
 
-This module implements several utilities such as proj_lp.
+This module implements utility functions.
 
 '''
 
@@ -21,4 +33,4 @@ from bat import apis
 from bat import attacks
 
 # Semantic Version
-__version__ = "0.0.8"
+__version__ = "0.1.0"

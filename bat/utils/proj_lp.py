@@ -2,7 +2,7 @@ import numpy as np
 
 def proj_lp(v, xi=0.1, p=2):
     """
-    SUPPORTS only p = 2 and p = Inf for now
+    Supports only p = 2 and p = Inf.
     """
     if p == 2:
         v = v * min(1, xi/np.linalg.norm(v.flatten('C')))
