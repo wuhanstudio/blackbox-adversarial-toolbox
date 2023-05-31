@@ -60,7 +60,7 @@ def square_attack_deepapi():
         y_target_onehot = dense_to_onehot(np.array([np.argmax(y_pred)]), n_classes=len(y_pred))
     
         # Note: we count the queries only across correctly classified images
-        square_attack = SquareAttack(model)
+        square_attack = SquareAttack(deepapi_model)
 
         # Vertically Distributed Attack
         x_adv, _ = square_attack.attack(x,  y_target_onehot, False, epsilon = 0.05, max_it=3000, concurrency=8)
