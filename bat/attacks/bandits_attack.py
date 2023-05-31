@@ -5,27 +5,8 @@ from tqdm import tqdm
 
 import concurrent.futures
 
-ENV_MODEL = os.environ.get('ENV_MODEL')
-ENV_MODEL_TYPE = os.environ.get('ENV_MODEL_TYPE')
-
-if ENV_MODEL is None:
-    ENV_MODEL = 'deepapi'
-
-if ENV_MODEL_TYPE is None:
-    ENV_MODEL_TYPE = 'inceptionv3'
-
 SCALE = 255
 PREPROCESS = lambda x: x
-
-if ENV_MODEL == 'keras':
-    if ENV_MODEL_TYPE == 'inceptionv3':
-        from tensorflow.keras.applications.inception_v3 import preprocess_input
-    elif ENV_MODEL_TYPE == 'resnet50':
-        from tensorflow.keras.applications.resnet50 import preprocess_input
-    elif ENV_MODEL_TYPE == 'vgg16':
-        from tensorflow.keras.applications.vgg16 import preprocess_input
-
-    PREPROCESS = lambda x: preprocess_input(x.copy())
 
 ###
 # Different optimization steps
@@ -103,9 +84,6 @@ class BanditsAttack():
             h, w, c = x[i].shape
             priors.append(np.zeros((h, w, c)))
     
-        if ENV_MODEL == 'keras':
-            priors = np.array(priors)
-
         return x_adv, y_pred, priors
 
     def step(self, x, x_adv, y, priors, epsilon, fd_eta, image_lr, online_lr, exploration):
@@ -137,11 +115,6 @@ class BanditsAttack():
             x_query_2.append(np.uint8(np.clip(img + fd_eta * (q2 / (1e-8 if norm_q2 == 0.0 else norm_q2)), 0, 1.0 * SCALE)))
 
             exp_noises.append(exp_noise)
-
-        if ENV_MODEL == 'keras':
-            x_query_1 = np.array(x_query_1)
-            x_query_2 = np.array(x_query_2)
-            exp_noises = np.array(exp_noises)
 
         # Loss points for finite difference estimator
         l1 = cross_entropy(self.classifier.predict(PREPROCESS(x_query_1)), y) # L(prior + c*noise)
@@ -234,17 +207,12 @@ class BanditsAttack():
 
             return x_adv
 
-        if ENV_MODEL == 'keras':
-            pbar = tqdm(range(0, max_it), desc="Non-Distributed Bandits Attack")
-        elif ENV_MODEL == 'deepapi':
-            if n_targets > 1:
-                # Horizontally Distributed Attack
-                pbar = tqdm(range(0, max_it), desc="Distributed Bandits Attack (Horizontal)")
-            else:
-                # Vertically Distributed Attack
-                pbar = tqdm(range(0, max_it, concurrency), desc="Distributed Bandits Attack (Vertical)")
+        if n_targets > 1:
+            # Horizontally Distributed Attack
+            pbar = tqdm(range(0, max_it), desc="Distributed Bandits Attack (Horizontal)")
         else:
-            raise ValueError('Environment not supported...')
+            # Vertically Distributed Attack
+            pbar = tqdm(range(0, max_it, concurrency), desc="Distributed Bandits Attack (Vertical)")
 
         total_queries = np.zeros(len(x))
 
@@ -257,24 +225,12 @@ class BanditsAttack():
             y_curr = [y[idx] for idx in not_dones]
             prior_curr = [priors[idx] for idx in not_dones]
 
-            if ENV_MODEL == 'keras':
-                x_curr = np.array(x_curr)
-                x_adv_curr = np.array(x_adv_curr)
-                y_curr = np.array(y_curr)
-                prior_curr = np.array(prior_curr)
-
-            if ENV_MODEL == 'keras':
+            if n_targets > 1:
+                # Horizontally Distributed Attack
                 x_adv_curr, prior_curr = self.step(x_curr, x_adv_curr, y_curr, prior_curr, epsilon * SCALE, fd_eta * SCALE, image_lr * SCALE, online_lr, exploration)
-
-            elif ENV_MODEL == 'deepapi':
-                if n_targets > 1:
-                    # Horizontally Distributed Attack
-                    x_adv_curr, prior_curr = self.step(x_curr, x_adv_curr, y_curr, prior_curr, epsilon * SCALE, fd_eta * SCALE, image_lr * SCALE, online_lr, exploration)
-                else:
-                    # Vertically Distributed Attack
-                    x_adv_curr, prior_curr = self.batch(x_curr, x_adv_curr, y_curr, prior_curr, epsilon * SCALE, fd_eta * SCALE, image_lr * SCALE, online_lr, exploration, concurrency)
             else:
-                raise ValueError('Model type not supported...')
+                # Vertically Distributed Attack
+                x_adv_curr, prior_curr = self.batch(x_curr, x_adv_curr, y_curr, prior_curr, epsilon * SCALE, fd_eta * SCALE, image_lr * SCALE, online_lr, exploration, concurrency)
 
             y_pred_curr = self.classifier.predict(PREPROCESS(x_adv_curr))
             y_curr = np.argmax(y_pred_curr, axis=1)
