@@ -72,9 +72,6 @@ model = DeepAPI_VGG16_Cifar10(DEEP_API_URL)
 # Get Preditction
 y_pred = model.predict(x)[0]
 
-# SimBA Attack
-x_adv = simba.attack(x, epsilon=0.1, max_it=1000)
-
 # Distributed SimBA Attack
 simba = SimBA(model)
 x_adv = simba.attack(x, np.argmax(y_pred), epsilon=0.05, max_it=10)
