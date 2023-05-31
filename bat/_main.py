@@ -198,7 +198,7 @@ def example_run_bandits_deepapi():
 @example_run.command('square_deepapi')
 def example_run_bandits_deepapi():
     """Square Attack against DeepAPI"""
-    bandits_attack_deepapi()
+    square_attack_deepapi()
 
 def main():
     main_cli.add_command(api)
