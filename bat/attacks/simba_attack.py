@@ -10,27 +10,8 @@ import concurrent.futures
 
 from bat.attacks.base_attack import BaseAttack
 
-ENV_MODEL = os.environ.get('ENV_MODEL')
-ENV_MODEL_TYPE = os.environ.get('ENV_MODEL_TYPE')
-
-if ENV_MODEL is None:
-    ENV_MODEL = 'deepapi'
-
-if ENV_MODEL_TYPE is None:
-    ENV_MODEL_TYPE = 'inceptionv3'
-
 SCALE = 255
 PREPROCESS = lambda x: x
-
-if ENV_MODEL == 'keras':
-    if ENV_MODEL_TYPE == 'inceptionv3':
-        from tensorflow.keras.applications.inception_v3 import preprocess_input
-    elif ENV_MODEL_TYPE == 'resnet50':
-        from tensorflow.keras.applications.resnet50 import preprocess_input
-    elif ENV_MODEL_TYPE == 'vgg16':
-        from tensorflow.keras.applications.vgg16 import preprocess_input
-
-    PREPROCESS = lambda x: preprocess_input(x.copy())
 
 def proj_lp(v, xi=0.1, p=2):
     """
@@ -88,10 +69,6 @@ class SimBA(BaseAttack):
             x_adv_plus.append(np.clip(x_adv[i] + diff, 0, 1 * SCALE))
             x_adv_minus.append(np.clip(x_adv[i] - diff, 0, 1 * SCALE))
             x_adv_diff.append(diff)
-
-        if ENV_MODEL == 'keras':
-            x_adv_plus = np.array(x_adv_plus)
-            x_adv_minus = np.array(x_adv_minus)
 
         plus = self.classifier.predict(PREPROCESS(x_adv_plus.copy()))
         minus = self.classifier.predict(PREPROCESS(x_adv_minus.copy()))
@@ -180,18 +157,13 @@ class SimBA(BaseAttack):
 
             return x
 
-
-        if ENV_MODEL == 'keras':
-            pbar = tqdm(range(0, max_it), desc="Non-Distributed SimBA Attack")
-        elif ENV_MODEL == 'deepapi':
+        else:
             if n_targets > 1:
                 # Horizontally Distributed Attack
                 pbar = tqdm(range(0, max_it), desc="Distributed SimBA Attack (Horizontal)")
             else:
                 # Vertically Distributed Attack
                 pbar = tqdm(range(0, max_it, concurrency), desc="Distributed SimBA Attack (Vertical)")
-        else:
-            raise ValueError('Environment not supported...')
 
         total_queries = np.zeros(len(x))
 
@@ -203,24 +175,14 @@ class SimBA(BaseAttack):
             y_curr = [y_pred[idx] for idx in not_dones]
             perm_curr = [perm[idx] for idx in not_dones]
 
-            if ENV_MODEL == 'keras':
-                x_adv_curr = np.array(x_adv_curr)
-                perm_curr = np.array(perm_curr)
-
             y_curr = np.array(y_curr)
 
-            if ENV_MODEL == 'keras':
+            if n_targets > 1:
+                # Horizontally Distributed Attack
                 x_adv_curr, y_curr = self.step(x_adv_curr, y_curr, perm_curr, i_iter, epsilon*SCALE)
-
-            elif ENV_MODEL == 'deepapi':
-                if n_targets > 1:
-                    # Horizontally Distributed Attack
-                    x_adv_curr, y_curr = self.step(x_adv_curr, y_curr, perm_curr, i_iter, epsilon*SCALE)
-                else:
-                    # Vertically Distributed Attack
-                    x_adv_curr, y_curr = self.batch(x_adv_curr, y_curr, perm_curr, i_iter, epsilon*SCALE, concurrency)
             else:
-                raise ValueError('Model type not supported...')
+                # Vertically Distributed Attack
+                x_adv_curr, y_curr = self.batch(x_adv_curr, y_curr, perm_curr, i_iter, epsilon*SCALE, concurrency)
 
             for i in range(len(not_dones)):
                 x_adv[not_dones[i]] = x_adv_curr[i]
