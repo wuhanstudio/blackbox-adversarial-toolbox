@@ -3,15 +3,13 @@ Black-box Adversarial Toolbox (BAT) is a python library for **Distrubuted Black-
 
 ## bat.apis
 
-This module implements Python clients of several Cloud APIs, so that we can use `model.predict()` to get predictions from API servers.
+Supported Cloud APIs:
 
 - DeepAPI
 - Google Cloud Vision
 - Imagga
 
 ## bat.attacks
-
-This module implements Distributed Black-box Attacks against Deep Learning models.
 
 Local Search:
 

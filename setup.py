@@ -46,6 +46,7 @@ setuptools.setup(
     extra_require = {
         "dev": [
             "pytest>=3.6",
+            "pdoc",
         ]
     },
     entry_points={

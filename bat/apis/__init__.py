@@ -1,7 +1,10 @@
 r'''
 This module implements several API clients for Deep Learning cloud API services, so that we can use `model.predict()` to get prediction results from API servers.
 
-- [DeepAPI](https://github.com/wuhanstudio/deepapi)
+
+### bat.apis.deepapi
+
+[DeepAPI](https://github.com/wuhanstudio/deepapi) is an open source image classification cloud service for research on distributed black-box attacks.
 
 ```python
 from bat.apis.deepapi import DeepAPI_VGG16_Cifar10
@@ -20,6 +23,8 @@ y_pred = model.predict(np.array([x]))[0]
 model.print(y_pred)
 ```
 
+### bat.apis.google
+
 - [Google Cloud Vision](https://cloud.google.com/vision)
 
 ```python
@@ -34,6 +39,8 @@ y_pred = model.predict("dog.jpg")
 # Print Predictions
 model.print(y_pred)
 ```
+
+### bat.apis.imagga
 
 - [Imagga](https://docs.imagga.com/#tags)
 
