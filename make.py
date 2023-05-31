@@ -22,7 +22,7 @@ pdoc.render.configure(
     logo="https://bat.wuhanstudio.uk/images/bat_dark.png",
     logo_link="https://github.com/wuhanstudio/blackbox-adversarial-toolbox")
 
-pdoc.pdoc(*modules, output_directory = here / "docs" / str("v" + str(__version__)) )
+pdoc.pdoc(*modules, output_directory = here / "docs")
 
 
 from html.parser import HTMLParser
@@ -39,10 +39,10 @@ class MyHTMLParser(HTMLParser):
 
 print('Generating index.html')
 
-homepage ='docs/index.html' 
-with open(homepage, 'w') as filetowrite:
-    filetowrite.write('<!DOCTYPE html><html><head><script type="text/javascript">')
-    filetowrite.write('window.location.href = window.location.href + "v')
-    filetowrite.write(str(__version__))
-    filetowrite.write('" + "/bat.html";')
-    filetowrite.write('</script></head><body></body></html>')
+# homepage ='docs/index.html' 
+# with open(homepage, 'w') as filetowrite:
+#     filetowrite.write('<!DOCTYPE html><html><head><script type="text/javascript">')
+#     filetowrite.write('window.location.href = window.location.href + "v')
+#     filetowrite.write(str(__version__))
+#     filetowrite.write('" + "/bat.html";')
+#     filetowrite.write('</script></head><body></body></html>')
