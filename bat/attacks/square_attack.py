@@ -4,27 +4,8 @@ import numpy as np
 from tqdm import tqdm
 import concurrent.futures
 
-ENV_MODEL = os.environ.get('ENV_MODEL')
-ENV_MODEL_TYPE = os.environ.get('ENV_MODEL_TYPE')
-
-if ENV_MODEL is None:
-    ENV_MODEL = 'deepapi'
-
-if ENV_MODEL_TYPE is None:
-    ENV_MODEL_TYPE = 'inceptionv3'
-
 SCALE = 255
 PREPROCESS = lambda x: x
-
-if ENV_MODEL == 'keras':
-    if ENV_MODEL_TYPE == 'inceptionv3':
-        from tensorflow.keras.applications.inception_v3 import preprocess_input
-    elif ENV_MODEL_TYPE == 'resnet50':
-        from tensorflow.keras.applications.resnet50 import preprocess_input
-    elif ENV_MODEL_TYPE == 'vgg16':
-        from tensorflow.keras.applications.vgg16 import preprocess_input
-
-    PREPROCESS = lambda x: preprocess_input(x.copy())
 
 class SquareAttack():
 
@@ -96,9 +77,6 @@ class SquareAttack():
             init_delta = np.random.choice([-epsilon, epsilon], size=[len(x), 1, w, c])
             x_adv.append(np.clip(xi + init_delta[i], self.min_val, self.max_val))
 
-        if ENV_MODEL == 'keras':
-            x_adv = np.array(x_adv)
-
         logits = self.classifier.predict(PREPROCESS(x_adv))
 
         n_queries = np.ones(len(x))  # ones because we have already used 1 query
@@ -128,11 +106,6 @@ class SquareAttack():
             x_adv_curr.append(x_adv[idx])
             y_curr.append(y[idx])
 
-        if ENV_MODEL == 'keras':
-            x_curr = np.array(x_curr)
-            x_adv_curr = np.array(x_adv_curr)
-            y_curr = np.array(y_curr)
-
         loss_min_curr, margin_min_curr = loss_min[idx_to_fool], margin_min[idx_to_fool]
         deltas = [ (xa - xc) for xa, xc in zip(x_adv_curr, x_curr) ]
 
@@ -154,9 +127,6 @@ class SquareAttack():
                 deltas[i_img][center_h:center_h+s, center_w:center_w+s, :] = np.random.choice([-eps, eps], size=[1, 1, c])
 
         x_new = [  np.clip(xc + d, self.min_val, self.max_val) for xc, d in zip(x_curr, deltas) ]
-
-        if ENV_MODEL == 'keras':
-            x_new = np.array(x_new)
 
         logits = self.classifier.predict(PREPROCESS(x_new))
 
@@ -263,17 +233,13 @@ class SquareAttack():
 
             return x, n_queries
 
-        if ENV_MODEL == 'keras':
-            pbar = tqdm(range(0, max_it), desc="Non-Distributed Square Attack")
-        elif ENV_MODEL == 'deepapi':
+        else:
             if n_targets > 1:
                 # Horizontally Distributed Attack
                 pbar = tqdm(range(0, max_it - 1), desc="Distributed Square Attack (Horizontal)")
             else:
                 # Vertically Distributed Attack
                 pbar = tqdm(range(0, max_it - 1, concurrency), desc="Distributed Square Attack (Vertical)")
-        else:
-            raise ValueError('Environment not supported...')
 
         np.random.seed(0)  # important to leave it here as well
 
@@ -297,18 +263,12 @@ class SquareAttack():
 
         for i_iter in pbar:
 
-            if ENV_MODEL == 'keras':
+            if n_targets > 1:
+                # Horizontally Distributed Attack
                 x_adv, margin_min, loss_min, n_queries = self.step(x, y, x_adv, margin_min, loss_min, n_queries, i_iter, max_it, p_init, epsilon * SCALE, targeted, loss_type)
-
-            elif ENV_MODEL == 'deepapi':
-                if n_targets > 1:
-                    # Horizontally Distributed Attack
-                    x_adv, margin_min, loss_min, n_queries = self.step(x, y, x_adv, margin_min, loss_min, n_queries, i_iter, max_it, p_init, epsilon * SCALE, targeted, loss_type)
-                else:
-                    # Vertically Distributed Attack
-                    x_adv, margin_min, loss_min, n_queries = self.batch(x, y, x_adv, margin_min, loss_min, n_queries, i_iter, max_it, p_init, epsilon * SCALE, targeted, loss_type, concurrency=concurrency)
             else:
-                raise ValueError('Model type not supported...')
+                # Vertically Distributed Attack
+                x_adv, margin_min, loss_min, n_queries = self.batch(x, y, x_adv, margin_min, loss_min, n_queries, i_iter, max_it, p_init, epsilon * SCALE, targeted, loss_type, concurrency=concurrency)
 
             acc, acc_curr, mean_nq, mean_nq_ae, avg_margin_min = self.evaluate(margin_min, n_queries, i_iter, np.sum(corr_classified))
 
