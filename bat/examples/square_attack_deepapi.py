@@ -7,6 +7,11 @@ from PIL import Image
 from bat.apis.deepapi import bat_deepapi_model_list
 from bat.attacks.square_attack import SquareAttack
 
+def dense_to_onehot(y, n_classes):
+    y_onehot = np.zeros([len(y), n_classes], dtype=bool)
+    y_onehot[np.arange(len(y)), y] = True
+    return y_onehot
+
 def square_attack_deepapi():
 
     for i, (_, model) in enumerate(bat_deepapi_model_list.items(), start=1):
@@ -52,11 +57,13 @@ def square_attack_deepapi():
             print('Prediction', np.argmax(y_pred), deepapi_model.get_class_name(np.argmax(y_pred)))
             print()
 
+        y_target_onehot = dense_to_onehot(np.array([np.argmax(y_pred)]), n_classes=len(y_pred))
+    
         # Note: we count the queries only across correctly classified images
         square_attack = SquareAttack(model)
 
         # Vertically Distributed Attack
-        x_adv, _ = square_attack.attack(x, np.array([y_pred]), False, epsilon = 0.05, max_it=3000, concurrency=8)
+        x_adv, _ = square_attack.attack(x,  y_target_onehot, False, epsilon = 0.05, max_it=3000, concurrency=8)
 
         # Save image
         Image.fromarray((x_adv[0]).astype(np.uint8)).save('result.jpg', subsampling=0, quality=100)
