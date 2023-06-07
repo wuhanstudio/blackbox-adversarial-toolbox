@@ -2,14 +2,13 @@
 
 # Black-box Adversarial Toolbox (BAT)
 
-
 [![Build Status](https://app.travis-ci.com/wuhanstudio/blackbox-adversarial-toolbox.svg?branch=master)](https://app.travis-ci.com/wuhanstudio/blackbox-adversarial-toolbox)
 [![PyPI version](https://badge.fury.io/py/blackbox-adversarial-toolbox.svg)](https://badge.fury.io/py/blackbox-adversarial-toolbox)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/blackbox-adversarial-toolbox)](https://pypi.org/project/blackbox-adversarial-toolbox/)
+[![](https://img.shields.io/badge/Documentation-infromational)](https://bat.wuhanstudio.uk/)
 
 A Python Library for Deep Learning Security that focuses on Distributed Black-box attacks.
-
 
 ## Installation
 
@@ -76,5 +75,3 @@ y_pred = model.predict(x)[0]
 simba = SimBA(model)
 x_adv = simba.attack(x, np.argmax(y_pred), epsilon=0.05, max_it=10)
 ```
-
-<h3> <a href="https://bat.wuhanstudio.uk/"> Documentation </a>
