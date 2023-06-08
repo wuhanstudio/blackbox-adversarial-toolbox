@@ -29,6 +29,8 @@ This module implements utility functions.
 # Project Imports
 from bat import apis
 from bat import attacks
+from bat import examples
+from bat import utils
 
 # Semantic Version
-__version__ = "0.1.0"
+__version__ = "0.1.2"
