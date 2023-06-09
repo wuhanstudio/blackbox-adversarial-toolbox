@@ -10,9 +10,14 @@ Gradient Estimation:
 
 - Bandits Attack [(Ilyas et al., 2019)](https://arxiv.org/abs/1807.07978)
 
-#### bat.attacks.simba_attack
-#### bat.attacks.square_attack
-#### bat.attacks.bandits_attack
+<br />
+
+## bat.attacks.simba_attack
+
+## bat.attacks.square_attack
+
+## bat.attacks.bandits_attack
+
 '''
 
 from bat.attacks.base_attack import BaseAttack
