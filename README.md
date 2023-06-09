@@ -32,7 +32,9 @@ Commands:
   attack   Manage Attacks
   example  Manage Examples
 ```
+
 Useful commands:
+
 ```
 # List supported Cloud APIs
 $ bat api list
