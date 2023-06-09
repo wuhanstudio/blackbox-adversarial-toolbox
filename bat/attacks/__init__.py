@@ -10,6 +10,10 @@ Gradient Estimation:
 
 - Bandits Attack [(Ilyas et al., 2019)](https://arxiv.org/abs/1807.07978)
 
+Distributed Black-box Attacks:
+
+- DeepAPI [(Wu et al., 2023)](https://arxiv.org/abs/2210.16371)
+
 <br />
 
 ## bat.attacks.simba_attack
