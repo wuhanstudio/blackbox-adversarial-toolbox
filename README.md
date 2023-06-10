@@ -6,7 +6,7 @@
 [![PyPI version](https://badge.fury.io/py/blackbox-adversarial-toolbox.svg)](https://badge.fury.io/py/blackbox-adversarial-toolbox)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/blackbox-adversarial-toolbox)](https://pypi.org/project/blackbox-adversarial-toolbox/)
-[![](https://img.shields.io/badge/Documentation-infromational)](https://bat.wuhanstudio.uk/)
+[![](https://img.shields.io/badge/Documentation-brightgreen)](https://bat.wuhanstudio.uk/)
 
 A Python Library for Deep Learning Security that focuses on Distributed Black-box attacks.
 
