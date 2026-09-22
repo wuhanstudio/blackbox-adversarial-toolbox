@@ -14,7 +14,7 @@ A Python Library for Deep Learning Security that focuses on Distributed Black-Bo
 
 Using `uv` (recomended)
 ```python
-uv init
+uv init --python 3.11
 uv add blackbox-adversarial-toolbox
 uv run bat --help 
 ```
