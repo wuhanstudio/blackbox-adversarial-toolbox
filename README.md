@@ -12,6 +12,15 @@ A Python Library for Deep Learning Security that focuses on Distributed Black-Bo
 
 ## Installation
 
+Using `uv` (recomended)
+```python
+uv init
+uv add blackbox-adversarial-toolbox
+uv run bat --help 
+```
+
+Using `pip`
+
 ```python
 pip install blackbox-adversarial-toolbox
 ```
